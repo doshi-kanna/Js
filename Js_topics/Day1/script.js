@@ -15,10 +15,18 @@ let bookEdition;
 console.log("Book Edition:", bookEdition);
 bookEdition="First Edition";
 console.log("Book Edition after initialization:", bookEdition);
-
+console.log(bookname,bookAuthor,"\n",bookEdition,bookPrice)
 
 
 let a,b,c;
 a=5,b=10,c=14;
-console.log("addition of three: ",a+b+c);
 console.log(a,"\n",b,"\n",c);
+console.log("addition of three: ",a+b+c);
+a=10,b=20,c=30;
+console.log(a,'\n',b,'\n',c);
+
+
+let name1 ,student;
+ name1="David";
+ student=name1;
+ console.log("Student name:",name1);
