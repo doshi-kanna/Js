@@ -26,6 +26,7 @@ a=10,b=20,c=30;
 console.log(a,'\n',b,'\n',c);
 
 
+
 let name1 ,student;
  name1="David";
  student=name1;
