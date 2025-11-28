@@ -15,4 +15,8 @@ console.log(WHITECOLOUR+" "+BLACKCOLOUR+" "+BLUECOLOUR);
 a=11;
 console.log(a);
 const DOB ='12.06.2023';
+console.log(DOB);
+c=20;
+console.log(c);
+alert("hello world");
 //const age =calAge(DOB);
