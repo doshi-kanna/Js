@@ -16,7 +16,10 @@ a=11;
 console.log(a);
 const DOB ='12.06.2023';
 console.log(DOB);
-c=20;
-console.log(c);
+
 alert("hello world");
 //const age =calAge(DOB);
+
+let limit =900037382728n;
+console.log(limit+1);
+console.log(limit +2n);
