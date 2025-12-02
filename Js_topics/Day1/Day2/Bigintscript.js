@@ -45,8 +45,25 @@ console.log(typeof myName)
 //String '' " " ``
 //null
 //undefined
-//change the type to another 
+//change the type to another dynamically typed language
+
+
+let input;
+
+input =prompt("Enter your name: ",'18');//18 is a default argument
+console.log(input);
+
+let number;
+number =confirm("Is this your number");// stores the data in boolean types
+console.log(number);
 
 
 
+
+
+console.log('2'/'2');//1
+
+let age1=23;
+age1=String(age1);
+console.log(age1);
 

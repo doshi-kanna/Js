@@ -5,60 +5,129 @@
     <meta name="viewport" content="width=??, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+    }
+    h2{
+        color: darkblue;
+    }
+    code{
+        background: #f4f4f4;
+        padding: 3px 6px;
+        border-radius: 4px;
+    }
+    pre{
+        background: #f4f4f4;
+        padding: 10px;
+        border-left: 5px solid #222;
+        overflow-x: auto;
+    }
+    hr{
+        margin: 30px 0;
+    }
+</style>
 <script src="/Js_topics/Day1/Day2/Bigintscript.js">
 
 
 
 </script>
-<body>
-    <p>Big Int <br>n^52-1=900389320380 </p> 
-   <p>  //Bog int 
-    // n^52-1=902882722882n;
-    let limit =90000202020n;
-  
-    console.log(limit+1n);
+<body><body>
 
-    // String are three type 
-    //''  single quotes
-    //""  double quotes
-    //`   tilt simple
-    //embedding   ${1+3} perform any task in console 
-    let intro="time is gold";
-    let paragraph=`This is Ironman's home.stark said that "Im an Iron man"`;
-    let quote='He said "I am  Iron man"'
-    let embed=`1+3=${1+3}`;
-    let embed1=`1+3=${intro}`;
-    let num =123+234;
-    let embed2=`1+3=${paragraph}`;
-    console.log(intro);
-    console.log(paragraph);
-    console.log(quote);
-    console.log(num);
-    console.log(embed);
-    console.log(embed1);
-    console.log(embed2);
-   
-    let name ="doshi"
-    let sentence=`this is ${name}`;
-    console.log(sentence);
+    <h1>JavaScript Basics – Quick Notes</h1>
+    <p>This page contains short and simple notes to help you understand basic JavaScript concepts.</p>
 
+    <hr>
 
-</p>
-<p>
-    let isMale=true;
-    console.log(typeof isMale);//typeof is used to find the type of the variable
-    let consition =5<7;
-    console.log( consition);
-    let age;//undefined variable
-    console.log(age);
-    
-</p>
-<p>//types of datatypes are 
-    // numbers consist of integer and floating type
-    //Big int value 2^53-1> are to store in Bigint
-    //String '' " " ``
-    //null
-    //undefined
-    //change the type to another</p>
+    <!-- BigInt -->
+    <h2>1. BigInt</h2>
+    <p>
+        JavaScript normally uses <b>Number</b> type to store numeric values, but it has a limit.
+        The largest safe integer is: <code>2^53 - 1</code>.  
+        When we need to store larger numbers, we use <b>BigInt</b>.
+    </p>
+
+    <p>BigInt values end with <code>n</code>.</p>
+
+    <pre>
+let bigValue = 90000202020n;
+console.log(bigValue + 1n);
+    </pre>
+
+    <p>
+        BigInt is useful when:
+        <ul>
+            <li>Working with very large numbers</li>
+            <li>Cryptography</li>
+            <li>Financial calculations</li>
+        </ul>
+    </p>
+
+    <hr>
+
+    <!-- Strings -->
+    <h2>2. Strings and Template Literals</h2>
+    <p>
+        JavaScript has three ways to write strings:
+        <ul>
+            <li><code>'single quotes'</code></li>
+            <li><code>"double quotes"</code></li>
+            <li><code>`backticks`</code> (template literals)</li>
+        </ul>
+    </p>
+
+    <p><b>Template literals</b> allow embedding values inside strings:</p>
+
+    <pre>
+let name = "Tony";
+let message = `Hello, my name is ${name}`;
+console.log(message);
+    </pre>
+
+    <p>Advantages of template literals:</p>
+    <ul>
+        <li>Supports multi-line text</li>
+        <li>Supports variable embedding</li>
+        <li>Easy to read and write</li>
+    </ul>
+
+    <hr>
+
+    <!-- Data Types -->
+    <h2>3. JavaScript Data Types</h2>
+
+    <p>JavaScript has two kinds of data types:</p>
+
+    <h3>Primitive Types</h3>
+    <ul>
+        <li>Number</li>
+        <li>BigInt</li>
+        <li>String</li>
+        <li>Boolean</li>
+        <li>Null</li>
+        <li>Undefined</li>
+        <li>Symbol</li>
+    </ul>
+
+    <h3>Non-Primitive Type</h3>
+    <ul>
+        <li>Object (arrays, functions, dates, etc.)</li>
+    </ul>
+
+    <hr>
+
+    <!-- Boolean -->
+    <h2>4. Boolean and Comparison Operators</h2>
+
+    <p>Boolean values represent:</p>
+    <ul>
+        <li><code>true</code></li>
+        <li><code>false</code></li>
+    </ul>
+
+    <p>Comparisons produce a boolean result:</p>
+
 </body>
 </html>
