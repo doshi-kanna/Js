@@ -54,7 +54,7 @@ input =prompt("Enter your name: ",'18');//18 is a default argument
 console.log(input);
 
 let number;
-number =confirm("Is this your number");// stores the data in boolean types
+number =confirm(`Is this your Name ${input}`);// stores the data in boolean types
 console.log(number);
 
 
@@ -66,4 +66,5 @@ console.log('2'/'2');//1
 let age1=23;
 age1=String(age1);
 console.log(age1);
+prompt()
 
