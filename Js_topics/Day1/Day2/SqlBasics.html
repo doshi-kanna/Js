@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SQL Interview Notes</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height:1.6; margin:20px; }
+    h1,h2,h3 { color:#2c3e50; }
+    table { border-collapse: collapse; width: 100%; margin-bottom:20px; }
+    table, th, td { border:1px solid #444; }
+    th, td { padding:8px; text-align:left; }
+    code { background:#f4f4f4; padding:2px 4px; border-radius:3px; }
+    .note { background:#e8f7f1; padding:10px; border-left:4px solid #16a085; margin:10px 0; }
+  </style>
+</head>
+<body>
+
+<h1>SQL Interview Notes (Beginner Friendly)</h1>
+
+<!-- SECTION 1 -->
+<h2>1. SQL Language Categories</h2>
+
+<h3>1.1 DML – Data Manipulation Language</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td>INSERT</td><td>Add new records</td></tr>
+<tr><td>UPDATE</td><td>Modify records</td></tr>
+<tr><td>DELETE</td><td>Delete records</td></tr>
+<tr><td>TRUNCATE</td><td>Remove all records (fast), no rollback</td></tr>
+</table>
+
+<h3>1.2 DDL – Data Definition Language</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td>CREATE</td><td>Create database/table</td></tr>
+<tr><td>ALTER</td><td>Modify structure</td></tr>
+<tr><td>RENAME</td><td>Change name</td></tr>
+<tr><td>DROP</td><td>Delete database/table</td></tr>
+</table>
+
+<h3>1.3 DCL – Data Control Language</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td>GRANT</td><td>Give permissions</td></tr>
+<tr><td>REVOKE</td><td>Remove permissions</td></tr>
+</table>
+
+<h3>1.4 DQL – Data Query Language</h3>
+<ul><li><code>SELECT</code> – Read data</li></ul>
+
+<h3>1.5 TCL – Transaction Control Language</h3>
+<table>
+<tr><th>Command</th><th>Purpose</th></tr>
+<tr><td>SAVEPOINT</td><td>Create a rollback point</td></tr>
+<tr><td>ROLLBACK</td><td>Undo changes</td></tr>
+<tr><td>COMMIT</td><td>Save permanently</td></tr>
+</table>
+
+<!-- SECTION 2 -->
+<h2>2. SQL Keys</h2>
+
+<h3>Primary Key</h3>
+<div class="note">Uniquely identifies records. Cannot be NULL.</div>
+
+<h3>Unique Key</h3>
+<div class="note">Unique values, but can contain NULL.</div>
+
+<h3>Foreign Key</h3>
+<div class="note">Links two tables by referencing a primary key.</div>
+
+<h3>Composite Key</h3>
+<div class="note">Two or more columns uniquely identify a record.</div>
+
+<h3>Candidate Key</h3>
+<div class="note">Columns that can potentially act as Primary Key.</div>
+
+<h3>Super Key</h3>
+<div class="note">Set of attributes that uniquely identifies a record.</div>
+
+<!-- SECTION 3 -->
+<h2>3. SQL Data Types</h2>
+
+<h3>Numbers</h3>
+<ul>
+  <li>INT</li>
+  <li>TINYINT</li>
+  <li>BIGINT</li>
+  <li>FLOAT(3,2) → Total 3 digits, 2 after decimal</li>
+  <li>DOUBLE</li>
+</ul>
+
+<h3>Strings</h3>
+<ul>
+  <li>CHAR</li>
+  <li>VARCHAR</li>
+  <li>TEXT</li>
+  <li>BLOB</li>
+</ul>
+
+<h3>Date/Time</h3>
+<ul>
+  <li>DATE</li>
+  <li>TIME</li>
+  <li>DATETIME</li>
+  <li>TIMESTAMP</li>
+</ul>
+
+<!-- SECTION 4 -->
+<h2>4. Practical SQL Examples with Output</h2>
+
+<h3>Create Database and Use It</h3>
+<pre><code>CREATE DATABASE INSTITUTE;
+USE INSTITUTE;</code></pre>
+
+<h3>Create Table</h3>
+<pre><code>CREATE TABLE COURSE (
+  COURSEID INT,
+  COURSENAME VARCHAR(30),
+  COURSEPRICE INT,
+  PRIMARY KEY (COURSEID)
+);
+</code></pre>
+
+<h3>Insert Data</h3>
+<pre><code>INSERT INTO COURSE VALUES
+(7,'PYTHON',2000),
+(9,'PYTHON',22000),
+(8,'PYTHON',26000);
+</code></pre>
+
+<table>
+<tr><th>COURSEID</th><th>COURSENAME</th><th>COURSEPRICE</th></tr>
+<tr><td>7</td><td>PYTHON</td><td>2000</td></tr>
+<tr><td>9</td><td>PYTHON</td><td>22000</td></tr>
+<tr><td>8</td><td>PYTHON</td><td>26000</td></tr>
+</table>
+
+<h3>Update Data</h3>
+<pre><code>UPDATE COURSE SET COURSENAME='C++'
+WHERE COURSEID=8 AND COURSENAME='PYTHON';
+</code></pre>
+
+<h3>Delete Data</h3>
+<pre><code>DELETE FROM COURSE WHERE COURSEID=9;</code></pre>
+
+<table>
+<tr><th>COURSEID</th><th>COURSENAME</th><th>COURSEPRICE</th></tr>
+<tr><td>7</td><td>PYTHON</td><td>2000</td></tr>
+<tr><td>8</td><td>C++</td><td>26000</td></tr>
+</table>
+
+<!-- SECTION 5 -->
+<h2>5. SQL Joins (Simple Definitions)</h2>
+
+<h3>INNER JOIN</h3>
+<div class="note">Returns only matching rows from both tables.</div>
+
+<h3>LEFT JOIN</h3>
+<div class="note">All records from left + matched from right. Unmatched = NULL.</div>
+
+<h3>RIGHT JOIN</h3>
+<div class="note">All records from right + matched from left. Unmatched = NULL.</div>
+
+<h3>FULL JOIN</h3>
+<div class="note">All matched + unmatched from both tables.</div>
+
+<h3>CROSS JOIN</h3>
+<div class="note">Every row from table A is paired with every row from table B.</div>
+
+<!-- SECTION 6 -->
+<h2>6. Difference: DELETE vs DROP vs TRUNCATE</h2>
+
+<table>
+<tr><th>Command</th><th>Deletes Data</th><th>Deletes Structure</th><th>Rollback</th></tr>
+<tr><td>DELETE</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+<tr><td>DROP</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+<tr><td>TRUNCATE</td><td>Yes</td><td>No</td><td>No</td></tr>
+</table>
+
+<!-- SECTION 7 -->
+<h2>7. Interview Ready Join Explanation</h2>
+<div class="note">
+<b>Inner Join</b>: Matching only<br>
+<b>Left Join</b>: All left, matched right<br>
+<b>Right Join</b>: All right, matched left<br>
+<b>Full Join</b>: All records<br>
+<b>Cross Join</b>: All combinations
+</div>
+
+<!-- SECTION 8 -->
+<h2>8. Basic SELECT Queries</h2>
+<pre><code>SELECT * FROM institute.students;
+SELECT * FROM institute.course;
+SELECT * FROM institute.trainers;
+</code></pre>
+
+<!-- SECTION 9 -->
+<h2>9. Quick Revision</h2>
+<ul>
+  <li>INSERT → Add data</li>
+  <li>UPDATE → Modify data</li>
+  <li>DELETE → Remove data</li>
+  <li>DROP → Delete table or DB</li>
+  <li>PRIMARY KEY → Unique, Not Null</li>
+  <li>FOREIGN KEY → Links tables</li>
+  <li>JOIN → Combines data from tables</li>
+</ul>
+
+</body>
+</html>

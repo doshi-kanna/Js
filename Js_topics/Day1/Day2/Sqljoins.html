@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SQL Practice — Schema, Joins &amp; Interview Notes</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#38bdf8;--white:#e6eef6}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.5;margin:0;background:linear-gradient(180deg,#071021 0%, #081426 100%);color:var(--white);padding:28px}
+    .container{max-width:1000px;margin:0 auto}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    h1{font-size:24px;margin:0}
+    p.lead{color:var(--muted);margin:6px 0 18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);padding:18px;border-radius:10px;margin-bottom:14px}
+    pre{background:#02111b;padding:12px;border-radius:8px;overflow:auto;color:#d6f0ff}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);text-align:left}
+    th{color:var(--accent);font-weight:600}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .badge{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+    @media (max-width:820px){.grid{grid-template-columns:1fr}}
+    ol{padding-left:20px}
+    .note{color:var(--muted);font-size:14px}
+    .tip{background:linear-gradient(90deg, rgba(56,189,248,0.08), rgba(56,189,248,0.03));padding:10px;border-radius:8px;border:1px solid rgba(56,189,248,0.12);color:var(--white);}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">SQL PRACTICE</div>
+      <div>
+        <h1>SQL Schema, Joins &amp; Interview-Friendly Notes</h1>
+        <p class="lead">HTML version of your SQL lesson: schema, sample data, sample outputs, joins explained, and interview tips.</p>
+      </div>
+    </header>
+
+    <section class="card" id="setup">
+      <h2>1. Database Setup &amp; Basic Commands</h2>
+      <pre><code>-- Select from another database
+SELECT * FROM institute.students;
+
+-- Switch to your working database
+USE student;</code></pre>
+      <p class="note">Use <code>USE student;</code> to switch to the database where you'll create tables and insert data.</p>
+    </section>
+
+    <section class="card" id="schema">
+      <h2>2. Create Tables (Schema)</h2>
+      <p class="note">Below are the SQL statements to create Course, Trainer, and Student tables with foreign keys and checks.</p>
+      <pre><code>CREATE TABLE COURSE(
+  CRSID INT PRIMARY KEY AUTO_INCREMENT,
+  CRS_NAME VARCHAR(50),
+  CRS_PRICE INT CHECK (CRS_PRICE > 0)
+);
+
+CREATE TABLE TRAINER(
+  TRID INT PRIMARY KEY AUTO_INCREMENT,
+  TRNAME VARCHAR(50),
+  TRADDRESS VARCHAR(50)
+);
+
+CREATE TABLE STUDENT (
+  STID INT PRIMARY KEY AUTO_INCREMENT,
+  STDNAME VARCHAR(50),
+  STDBATCH INT,
+  CRSID INT,
+  TRID INT
+);
+
+ALTER TABLE STUDENT ADD FOREIGN KEY(CRSID) REFERENCES COURSE(CRSID);
+ALTER TABLE STUDENT ADD FOREIGN KEY(TRID) REFERENCES TRAINER(TRID);
+</code></pre>
+    </section>
+
+    <section class="card" id="insert">
+      <h2>3. Insert Sample Data</h2>
+      <pre><code>INSERT INTO COURSE (CRS_NAME,CRS_PRICE)
+VALUES ('SQL',20000),('JAVA',30000),('PYTHON',22000);
+
+INSERT INTO TRAINER(TRNAME,TRADDRESS)
+VALUES ('VENKAT','PORUR'),('MICHAEL','VIRUGAMBAKKAM'),('BADRI','CMBT');
+
+INSERT INTO STUDENT(STDNAME,STDBATCH,CRSID,TRID)
+VALUES ('AJAY',2022,1,1),('ANAND',2012,2,1),('AKASH',2025,1,3);
+</code></pre>
+    </section>
+
+    <section class="card" id="sample-output">
+      <h2>4. Sample Outputs (What you see after SELECT *)</h2>
+      <div class="grid">
+        <div>
+          <h3>COURSE</h3>
+          <table>
+            <thead><tr><th>CRSID</th><th>CRS_NAME</th><th>CRS_PRICE</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>SQL</td><td>20000</td></tr>
+              <tr><td>2</td><td>JAVA</td><td>30000</td></tr>
+              <tr><td>3</td><td>PYTHON</td><td>22000</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3>TRAINER</h3>
+          <table>
+            <thead><tr><th>TRID</th><th>TRNAME</th><th>TRADDRESS</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>VENKAT</td><td>PORUR</td></tr>
+              <tr><td>2</td><td>MICHAEL</td><td>VIRUGAMBAKKAM</td></tr>
+              <tr><td>3</td><td>BADRI</td><td>CMBT</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3>STUDENT</h3>
+        <table>
+          <thead><tr><th>STID</th><th>STDNAME</th><th>STDBATCH</th><th>CRSID</th><th>TRID</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>AJAY</td><td>2022</td><td>1</td><td>1</td></tr>
+            <tr><td>2</td><td>ANAND</td><td>2012</td><td>2</td><td>1</td></tr>
+            <tr><td>3</td><td>AKASH</td><td>2025</td><td>1</td><td>3</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="joins">
+      <h2>5. JOINS — Queries, Simple Definitions &amp; Sample Results</h2>
+
+      <h3>INNER JOIN</h3>
+      <pre><code>SELECT *
+FROM STUDENT ST
+JOIN COURSE C ON ST.CRSID = C.CRSID;</code></pre>
+      <p class="note">Definition: Returns only rows that have matching values in both tables.</p>
+      <table>
+        <thead><tr><th>STDNAME</th><th>STDBATCH</th><th>CRS_NAME</th></tr></thead>
+        <tbody>
+          <tr><td>AJAY</td><td>2022</td><td>SQL</td></tr>
+          <tr><td>ANAND</td><td>2012</td><td>JAVA</td></tr>
+          <tr><td>AKASH</td><td>2025</td><td>SQL</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Multi-table INNER JOIN (Student + Course + Trainer)</h3>
+      <pre><code>SELECT *
+FROM STUDENT ST
+JOIN COURSE C ON ST.CRSID = C.CRSID
+JOIN TRAINER T ON ST.TRID = T.TRID;</code></pre>
+      <p class="note">Definition: Matches rows across all joined tables where join conditions hold.</p>
+      <table>
+        <thead><tr><th>STDNAME</th><th>CRS_NAME</th><th>TRNAME</th></tr></thead>
+        <tbody>
+          <tr><td>AJAY</td><td>SQL</td><td>VENKAT</td></tr>
+          <tr><td>ANAND</td><td>JAVA</td><td>VENKAT</td></tr>
+          <tr><td>AKASH</td><td>SQL</td><td>BADRI</td></tr>
+        </tbody>
+      </table>
+
+      <h3>LEFT JOIN</h3>
+      <pre><code>SELECT *
+FROM STUDENT ST
+LEFT JOIN TRAINER T ON ST.TRID = T.TRID
+LEFT JOIN COURSE C ON ST.CRSID = C.CRSID;</code></pre>
+      <p class="note">Definition: Returns all rows from the <strong>left</strong> table (STUDENT) and matching rows from right tables. If no match, right columns are NULL.</p>
+
+      <h3>RIGHT JOIN</h3>
+      <pre><code>SELECT *
+FROM STUDENT ST
+RIGHT JOIN TRAINER T ON ST.TRID = T.TRID
+RIGHT JOIN COURSE C ON ST.CRSID = C.CRSID;</code></pre>
+      <p class="note">Definition: Returns all rows from the <strong>right</strong> tables (TRAINER / COURSE) and matching rows from left. Useful to see all trainers/courses even without students.</p>
+
+      <h3>GROUP BY + HAVING Example</h3>
+      <pre><code>SELECT COUNT(ST.STID) AS student_count, T.TRNAME
+FROM STUDENT ST
+RIGHT JOIN COURSE C ON ST.CRSID = C.CRSID
+RIGHT JOIN TRAINER T ON ST.TRID = T.TRID
+GROUP BY T.TRNAME
+HAVING COUNT(ST.STID) &gt; 1;</code></pre>
+      <p class="note">Meaning: Count students per trainer, then show trainers with more than 1 student. Sample result: <code>VENKAT — 2</code></p>
+
+    </section>
+
+    <section class="card" id="definitions">
+      <h2>6. Quick Interview Definitions (Short &amp; Clear)</h2>
+      <ul>
+        <li><strong>INNER JOIN</strong> — rows matching in both tables.</li>
+        <li><strong>LEFT JOIN</strong> — all rows from left table + matching from right (NULL if none).</li>
+        <li><strong>RIGHT JOIN</strong> — all rows from right table + matching from left.</li>
+        <li><strong>FULL OUTER JOIN</strong> — (not in MySQL) returns rows when there is a match in either table.</li>
+        <li><strong>GROUP BY</strong> — groups rows to aggregate (SUM, COUNT, AVG).</li>
+        <li><strong>HAVING</strong> — filters groups (like WHERE but for aggregated groups).</li>
+        <li><strong>FOREIGN KEY</strong> — enforces referential integrity between tables.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="tips">
+      <h2>7. Interview Tips &amp; Short Answers</h2>
+      <ol>
+        <li>Explain joins with a one-liner and a tiny example — interviewers like clarity.</li>
+        <li>Mention referential integrity when asked why use foreign keys.</li>
+        <li>For optimization mention indexes on join columns (CRSID, TRID).</li>
+        <li>If asked about NULLs in joins, explain how LEFT/RIGHT produce NULLs when unmatched.</li>
+      </ol>
+      <div class="tip">Pro tip: Practice writing queries by hand and explain results aloud — that helps under interview pressure.</div>
+    </section>
+
+    <footer style="margin-top:14px;color:var(--muted);font-size:13px">
+      Generated for you — copy this single-file HTML and open in a browser to study or present.
+    </footer>
+  </div>
+</body>
+</html>
