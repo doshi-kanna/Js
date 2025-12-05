@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Learning - School Database</title>
+
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        margin:0;
+        background:#f7f7f7;
+    }
+    header{
+        background:#0477BF;
+        padding:20px;
+        color:white;
+        text-align:center;
+        font-size:28px;
+        font-weight:600;
+    }
+    .container{
+        width:90%;
+        margin:auto;
+        margin-top:25px;
+    }
+    h2{
+        background:#e3f2ff;
+        padding:15px;
+        border-left:6px solid #0477BF;
+        border-radius:4px;
+    }
+    .section{
+        background:white;
+        padding:20px;
+        margin-bottom:20px;
+        border-radius:8px;
+        box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .definition{
+        background:#fff9e6;
+        padding:15px;
+        border-left:6px solid orange;
+        margin-top:10px;
+        border-radius:4px;
+        line-height:1.6;
+    }
+    pre{
+        background:#222;
+        color:#0f0;
+        padding:15px;
+        overflow:auto;
+        border-radius:6px;
+        margin-top:10px;
+    }
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:10px;
+    }
+    th,td{
+        border:1px solid #ccc;
+        padding:10px;
+        text-align:left;
+    }
+    th{
+        background:#0477BF;
+        color:white;
+    }
+    .accordion {
+        cursor:pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: left;
+        background:#0477BF;
+        color:white;
+        border:none;
+        outline:none;
+        font-size:18px;
+        border-radius:6px;
+        margin-bottom:10px;
+    }
+    .panel {
+        display:none;
+        padding: 10px 0px;
+    }
+    code{
+        color:#ffeb3b;
+    }
+    footer{
+        text-align:center;
+        padding:20px;
+        background:#222;
+        color:white;
+        margin-top:20px;
+        font-size:14px;
+    }
+</style>
+
+<script>
+function togglePanel(i){
+    var panel = document.getElementById("panel"+i);
+    panel.style.display = panel.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</head>
+<body>
+<header>SQL LEARNING MODULE - SCHOOL DATABASE</header>
+
+<div class="container">
+
+<!---------------- CREATE DATABASE ---------------->
+<button class="accordion" onclick="togglePanel(1)">CREATE DATABASE & TABLES</button>
+<div class="panel" id="panel1">
+<div class="section">
+<h2>Database and Tables</h2>
+
+<div class="definition">
+<b>Definition:</b> A database stores related tables. Tables contain rows of data. Primary Key uniquely identifies each row. Foreign Key links tables together.
+</div>
+
+<pre>
+CREATE DATABASE SCHOOL;
+USE SCHOOL;
+
+CREATE TABLE COURSE (
+  CRS_ID INT PRIMARY KEY AUTO_INCREMENT,
+  CRS_NAME VARCHAR(30),
+  CRS_PRICE INT
+);
+
+CREATE TABLE TRAINER(
+  TR_ID INT PRIMARY KEY AUTO_INCREMENT ,
+  TR_NAME VARCHAR(40)
+);
+
+CREATE TABLE STUDENT (
+  ST_ID INT PRIMARY KEY AUTO_INCREMENT ,
+  ST_NAME VARCHAR(40),
+  CRS_ID INT ,
+  TR_ID INT 
+);
+
+ALTER TABLE STUDENT 
+ADD CONSTRAINT FOREIGN KEY(CRS_ID) REFERENCES COURSE(CRS_ID);
+</pre>
+</div>
+</div>
+
+<!---------------- INSERT DATA ---------------->
+<button class="accordion" onclick="togglePanel(2)">INSERT DATA</button>
+<div class="panel" id="panel2">
+<div class="section">
+<h2>Insert Data</h2>
+
+<div class="definition">
+INSERT is used to add new rows into a table.
+</div>
+
+<pre>
+INSERT INTO COURSE (CRS_NAME ,CRS_PRICE) 
+VALUES ('JAVA',20000),('SQL',22000),('PYTHON',19000),('C++',19000);
+
+INSERT INTO TRAINER (TR_NAME )VALUES('BADRI'),('VENKAT');
+
+INSERT INTO STUDENT (ST_NAME ,CRS_ID,TR_ID) 
+VALUES ('SHYAM',1,1),('NITHIN',2,2),('AJAY',3,2),('NITHISH',2,2);
+</pre>
+
+<h3>Sample Output - STUDENT</h3>
+<table>
+<tr><th>ST_ID</th><th>ST_NAME</th><th>CRS_ID</th><th>TR_ID</th></tr>
+<tr><td>1</td><td>SHYAM</td><td>1</td><td>1</td></tr>
+<tr><td>2</td><td>NITHIN</td><td>2</td><td>2</td></tr>
+<tr><td>3</td><td>AJAY</td><td>3</td><td>2</td></tr>
+<tr><td>4</td><td>NITHISH</td><td>2</td><td>2</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- INNER JOIN ---------------->
+<button class="accordion" onclick="togglePanel(3)">INNER JOIN</button>
+<div class="panel" id="panel3">
+<div class="section">
+<h2>Inner Join</h2>
+
+<div class="definition">
+<b>Definition:</b> INNER JOIN returns matching rows between two tables based on common column.
+</div>
+
+<pre>
+SELECT ST.ST_NAME, C.CRS_NAME, C.CRS_PRICE
+FROM STUDENT ST 
+JOIN COURSE C 
+ON ST.CRS_ID = C.CRS_ID;
+</pre>
+
+<h3>Output</h3>
+<table>
+<tr><th>ST_NAME</th><th>CRS_NAME</th><th>CRS_PRICE</th></tr>
+<tr><td>SHYAM</td><td>JAVA</td><td>20000</td></tr>
+<tr><td>NITHIN</td><td>SQL</td><td>22000</td></tr>
+<tr><td>AJAY</td><td>PYTHON</td><td>19000</td></tr>
+<tr><td>NITHISH</td><td>SQL</td><td>22000</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- LEFT JOIN ---------------->
+<button class="accordion" onclick="togglePanel(4)">LEFT JOIN</button>
+<div class="panel" id="panel4">
+<div class="section">
+<h2>Left Join</h2>
+
+<div class="definition">
+<b>Definition:</b> LEFT JOIN returns all rows from left table and matched rows from right table.
+</div>
+
+<pre>
+SELECT ST.ST_NAME, T.TR_NAME 
+FROM STUDENT ST 
+LEFT JOIN TRAINER T 
+ON ST.TR_ID = T.TR_ID;
+</pre>
+
+<h3>Output</h3>
+<table>
+<tr><th>ST_NAME</th><th>TR_NAME</th></tr>
+<tr><td>SHYAM</td><td>BADRI</td></tr>
+<tr><td>NITHIN</td><td>VENKAT</td></tr>
+<tr><td>AJAY</td><td>VENKAT</td></tr>
+<tr><td>NITHISH</td><td>VENKAT</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- RIGHT JOIN ---------------->
+<button class="accordion" onclick="togglePanel(5)">RIGHT JOIN</button>
+<div class="panel" id="panel5">
+<div class="section">
+<h2>Right Join</h2>
+
+<div class="definition">
+<b>Definition:</b> RIGHT JOIN returns all rows from right table, matched rows from left table.
+</div>
+
+<pre>
+SELECT ST.ST_NAME, C.CRS_NAME
+FROM STUDENT ST 
+RIGHT JOIN COURSE C 
+ON ST.CRS_ID = C.CRS_ID;
+</pre>
+
+<h3>Output</h3>
+<table>
+<tr><th>ST_NAME</th><th>CRS_NAME</th></tr>
+<tr><td>SHYAM</td><td>JAVA</td></tr>
+<tr><td>NITHIN</td><td>SQL</td></tr>
+<tr><td>NITHISH</td><td>SQL</td></tr>
+<tr><td>AJAY</td><td>PYTHON</td></tr>
+<tr><td>null</td><td>C++</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- WHERE ---------------->
+<button class="accordion" onclick="togglePanel(6)">WHERE CONDITION</button>
+<div class="panel" id="panel6">
+<div class="section">
+<h2>WHERE Clause</h2>
+
+<div class="definition">
+<b>Definition:</b> WHERE is used to filter records based on conditions.
+</div>
+
+<pre>
+SELECT * FROM COURSE WHERE CRS_PRICE >20000;
+</pre>
+
+<h3>Output</h3>
+<table>
+<tr><th>CRS_ID</th><th>CRS_NAME</th><th>CRS_PRICE</th></tr>
+<tr><td>2</td><td>SQL</td><td>22000</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- GROUP BY ---------------->
+<button class="accordion" onclick="togglePanel(7)">GROUP BY</button>
+<div class="panel" id="panel7">
+<div class="section">
+<h2>GROUP BY & Aggregate Functions</h2>
+
+<div class="definition">
+<b>Definition:</b> GROUP BY groups similar data, used with COUNT, SUM, AVG for aggregated results.
+</div>
+
+<pre>
+SELECT CRS_ID, COUNT(ST_ID)
+FROM STUDENT
+GROUP BY CRS_ID;
+</pre>
+
+<h3>Output</h3>
+<table>
+<tr><th>CRS_ID</th><th>COUNT</th></tr>
+<tr><td>1</td><td>1</td></tr>
+<tr><td>2</td><td>2</td></tr>
+<tr><td>3</td><td>1</td></tr>
+</table>
+</div>
+</div>
+
+
+<!---------------- UNION ---------------->
+<button class="accordion" onclick="togglePanel(8)">UNION & UNION ALL</button>
+<div class="panel" id="panel8">
+<div class="section">
+<h2>UNION</h2>
+
+<div class="definition">
+<b>Definition:</b> UNION combines result of two queries and removes duplicates.
+</div>
+
+<pre>
+SELECT CRS_NAME FROM COURSE 
+UNION 
+SELECT PROD_NAME FROM PRODUCT;
+</pre>
+
+<h2>UNION ALL</h2>
+
+<div class="definition">
+<b>Definition:</b> UNION ALL returns all data including duplicates.
+</div>
+
+<pre>
+SELECT CRS_NAME FROM COURSE 
+UNION ALL
+SELECT PROD_NAME FROM PRODUCT;
+</pre>
+
+</div>
+</div>
+
+
+<!---------------- CROSS JOIN ---------------->
+<button class="accordion" onclick="togglePanel(9)">CROSS JOIN</button>
+<div class="panel" id="panel9">
+<div class="section">
+<h2>CROSS JOIN</h2>
+
+<div class="definition">
+<b>Definition:</b> CROSS JOIN returns every combination of rows from both tables.
+</div>
+
+<pre>
+SELECT * FROM COURSE 
+CROSS JOIN STUDENT;
+</pre>
+
+<h3>Output</h3>
+<p>Produces M x N rows</p>
+
+</div>
+</div>
+
+
+</div>
+
+<footer>
+SQL Learning © 2024 - Designed for Interview Preparation
+</footer>
+
+</body>
+</html>
