@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p>comparative Operators</p>
+    
+</body>
+<script src="/Js_topics/Day4js/comparative_script.js"></script>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JavaScript Equality, Type Conversion & Special Values</title>
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f9fbfd;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #0d6efd;
+    color: white;
+    padding: 22px;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: #0d6efd;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 6px;
+}
+
+h3 {
+    color: #212529;
+}
+
+code {
+    background: #f1f3f5;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+pre {
+    background: #212529;
+    color: #f8f9fa;
+    padding: 15px;
+    overflow-x: auto;
+    border-radius: 6px;
+}
+
+.output {
+    background: #e7f5ff;
+    padding: 15px;
+    border-left: 4px solid #0d6efd;
+    margin-top: 12px;
+    border-radius: 4px;
+}
+
+.note {
+    background: #fff3cd;
+    padding: 12px;
+    border-left: 4px solid #ffc107;
+    margin-top: 12px;
+    border-radius: 4px;
+}
+
+.explain {
+    background: #f8f9fa;
+    padding: 18px;
+    border-left: 5px solid #0d6efd;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #212529;
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>JavaScript Core Concepts – Interview Preparation</h1>
+    <p>Equality • Type Conversion • null • undefined • NaN</p>
+</header>
+
+<div class="container">
+
+<section>
+<h2>How to Read & Learn This Page (W3Schools Logic)</h2>
+
+<div class="explain">
+<p>
+This page follows the <strong>same learning approach used by W3Schools</strong>, specially designed for 
+<strong>beginners and interview candidates</strong>.
+</p>
+
+<ul>
+<li><strong>Concept First:</strong> Every topic starts with a simple definition.</li>
+<li><strong>Rule-Based Learning:</strong> Important JavaScript rules are clearly mentioned.</li>
+<li><strong>Code Example:</strong> Real JavaScript code is shown exactly as used in practice.</li>
+<li><strong>Output Section:</strong> Expected output is displayed separately for clarity.</li>
+<li><strong>Stepwise Reasoning:</strong> Each result is explained step by step (interview-friendly).</li>
+</ul>
+
+<p>
+This structure helps you <strong>understand, remember, and confidently explain</strong> JavaScript behavior during interviews.
+</p>
+</div>
+</section>
+
+<section>
+<h2>1. Equality Operators (== vs ===)</h2>
+
+<h3>Definition</h3>
+<p>
+<code>==</code> is the <strong>loose equality operator</strong>. It compares values after type conversion.<br>
+<code>===</code> is the <strong>strict equality operator</strong>. It compares both value and data type.
+</p>
+
+<pre>
+let a = '1';
+let b = 1;
+
+console.log(a == b);
+console.log(a === b);
+console.log(a != b);
+console.log(a !== b);
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+true<br>
+false<br>
+false<br>
+true
+</div>
+
+<div class="explain">
+<strong>Stepwise Explanation:</strong><br>
+1. '1' == 1 → string converted to number → true<br>
+2. '1' === 1 → type mismatch → false<br>
+3. != follows == rules → false<br>
+4. !== follows === rules → true
+</div>
+
+<div class="note">
+Interview Tip: Use <code>===</code> to avoid unexpected type conversion bugs.
+</div>
+</section>
+
+<section>
+<h2>2. Unary + and Post Decrement</h2>
+
+<pre>
+let a = '1';
+let b = 1;
+
+let res1 = +a + b--;
+console.log(res1);
+
+let res = a + b;
+console.log(res);
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+2<br>
+11
+</div>
+
+<div class="explain">
+<strong>Stepwise Reasoning:</strong><br>
++ '1' converts string to number → 1<br>
+1 + 1 = 2<br>
+b-- decreases value after use → b becomes 0<br>
+'a' + b → string concatenation → "11"
+</div>
+</section>
+
+<section>
+<h2>3. Boolean Conversion Rules</h2>
+
+<pre>
+let a1 = '0';
+let a = Boolean(a1);
+
+let b1 = 0;
+let b = Boolean(b1);
+
+console.log(a == b);
+console.log(a === b);
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+true<br>
+true
+</div>
+
+<div class="explain">
+Non-empty strings → true<br>
+0 → false<br>
+Both variables become boolean false → equal and strictly equal
+</div>
+</section>
+
+<section>
+<h2>4. null vs undefined</h2>
+
+<pre>
+console.log(null == undefined);
+console.log(null === undefined);
+console.log(null >= 0);
+console.log(null > 0);
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+true<br>
+false<br>
+true<br>
+false
+</div>
+
+<div class="explain">
+null loosely equals undefined<br>
+null converts to 0 in numeric comparison<br>
+0 >= 0 → true
+</div>
+</section>
+
+<section>
+<h2>5. NaN (Not a Number)</h2>
+
+<pre>
+console.log(NaN == NaN);
+console.log(isNaN(NaN));
+console.log(isNaN('hello'));
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+false<br>
+true<br>
+true
+</div>
+
+<div class="explain">
+NaN is not equal to any value, including itself.<br>
+Always use <code>isNaN()</code> to detect NaN.
+</div>
+</section>
+
+<section>
+<h2>6. String Comparison (Unicode)</h2>
+
+<pre>
+let str4 = 'goms';
+let bool4 = 'Zoms';
+
+console.log(str4 > bool4);
+</pre>
+
+<div class="output">
+<strong>Output:</strong><br>
+false
+</div>
+
+<div class="explain">
+'g' → Unicode 103<br>
+'Z' → Unicode 90<br>
+Comparison is lexicographical (character by character).
+</div>
+</section>
+
+</div>
+
+<footer>
+JavaScript Day-4 | Structured Like W3Schools | Interview-Ready Notes
+</footer>
+
+</body>
+</html>

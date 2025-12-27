@@ -23,3 +23,8 @@ alert("hello world");
 let limit =900037382728n;
 console.log(limit+1);
 console.log(limit +2n);
+
+let n=1;
+let n2=2;
+let result =n>n2;
+console.log(result);
